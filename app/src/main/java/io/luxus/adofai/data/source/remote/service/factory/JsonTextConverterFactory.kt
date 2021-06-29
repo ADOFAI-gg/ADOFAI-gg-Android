@@ -1,4 +1,4 @@
-package io.luxus.adofai.data.source.remote.converter
+package io.luxus.adofai.data.source.remote.service.factory
 
 import okhttp3.ResponseBody
 import retrofit2.Converter
