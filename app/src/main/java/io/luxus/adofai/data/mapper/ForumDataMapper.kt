@@ -20,12 +20,15 @@ class ForumDataMapper @Inject constructor(
 
     fun getLevelList(): List<CustomLevel> {
 
-        val result = googleSheetService.getData(Constants.KEY_ADMIN, Constants.GID_ADMIN_MAPS).execute().body()!!
+        val result = googleSheetService
+            .getData(Constants.KEY_ADMIN, Constants.GID_ADMIN_MAPS)
+            .execute().body()!!
 
         val customLevelList = ArrayList<CustomLevel>()
-        for (element in result.googleSheetTable.googleSheetRows) {
+        for (element in result) {
             try {
-                customLevelList.add(googleSheetConverter.toCustomLevelData(element.c))
+                val customLevel = googleSheetConverter.toCustomLevelData(element)
+                if (customLevel != null) customLevelList.add(customLevel)
             } catch (exception: Exception) {
                 Log.e(TAG, "failed to convert data: $element", exception)
             }

@@ -77,5 +77,10 @@ class FragmentLevelList : Fragment() {
     }
 
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.load()
+    }
+
 
 }
