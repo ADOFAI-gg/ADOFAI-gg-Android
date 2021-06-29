@@ -1,14 +1,14 @@
 package io.luxus.adofai.data.source.remote.converter
 
-import com.google.gson.JsonArray
 import com.google.gson.JsonObject
-import io.luxus.adofai.domain.model.CustomLevel
+import io.luxus.adofai.domain.entity.CustomLevel
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class GoogleSheetConverter @Inject constructor() {
 
-    fun toCustomLevelData(jsonObject: JsonObject): CustomLevel {
-        val data: JsonArray = jsonObject["c"] as JsonArray
+    fun toCustomLevelData(data: List<JsonObject>): CustomLevel {
 
         val id = data[0].asJsonObject["v"].asLong
         val song = data[1].asJsonObject["v"].asString
@@ -20,18 +20,18 @@ class GoogleSheetConverter @Inject constructor() {
         //val video = data[7].asJsonObject["v"].asString
         val epilepsyWarningString = data[8].asJsonObject["v"].asString
         val bpmString = data[9].asJsonObject["f"].asString
-        val tiles = data[10]?.asJsonObject?.get("v")?.asLong
-        val tag1 = data[11]?.asJsonObject?.get("v")?.asString
-        val tag2 = data[12]?.asJsonObject?.get("v")?.asString
-        val tag3 = data[13]?.asJsonObject?.get("v")?.asString
-        val tag4 = data[14]?.asJsonObject?.get("v")?.asString
-        val tag5 = data[15]?.asJsonObject?.get("v")?.asString
+        val tiles = data[10].asJsonObject?.get("v")?.asLong
+        val tag1 = data[11].asJsonObject?.get("v")?.asString
+        val tag2 = data[12].asJsonObject?.get("v")?.asString
+        val tag3 = data[13].asJsonObject?.get("v")?.asString
+        val tag4 = data[14].asJsonObject?.get("v")?.asString
+        val tag5 = data[15].asJsonObject?.get("v")?.asString
         val level = data[16].asJsonObject["v"].asDouble
-        val rawDownload = data[17]?.asJsonObject?.get("v")?.asString
-        val rawWorkshop = data[18]?.asJsonObject?.get("v")?.asString
-        val rawVideo = data[19]?.asJsonObject?.get("v")?.asString
+        val rawDownload = data[17].asJsonObject?.get("v")?.asString
+        val rawWorkshop = data[18].asJsonObject?.get("v")?.asString
+        val rawVideo = data[19].asJsonObject?.get("v")?.asString
         //val reserved = data[20]?.asJsonObject?.get("v")?.asString
-        val discord = data[21]?.asJsonObject?.get("v")?.asString
+        val discord = data[21].asJsonObject?.get("v")?.asString
 
 
         val epilepsyWarning = epilepsyWarningString != "X"

@@ -1,4 +1,4 @@
-package io.luxus.adofai.domain.model
+package io.luxus.adofai.domain.entity
 
 data class CustomLevel(
     val id: Long,
