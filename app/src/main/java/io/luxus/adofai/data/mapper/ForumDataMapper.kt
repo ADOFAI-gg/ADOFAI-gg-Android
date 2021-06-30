@@ -1,6 +1,7 @@
 package io.luxus.adofai.data.mapper
 
 import android.util.Log
+import com.google.gson.JsonArray
 import io.luxus.adofai.data.source.remote.converter.GoogleSheetConverter
 import io.luxus.adofai.data.source.remote.service.GoogleSheetService
 import io.luxus.adofai.domain.entity.CustomLevel
@@ -19,22 +20,27 @@ class ForumDataMapper @Inject constructor(
     }
 
     fun getLevelList(): List<CustomLevel> {
+        return getDataList(Constants.GID_ADMIN_MAPS) {
+                element -> googleSheetConverter.toCustomLevelData(element)
+        }
+    }
 
+    private fun <T> getDataList(gid: String, callback: (JsonArray) -> T?): List<T> {
         val result = googleSheetService
-            .getData(Constants.KEY_ADMIN, Constants.GID_ADMIN_MAPS)
+            .getData(Constants.KEY_ADMIN, gid)
             .execute().body()!!
 
-        val customLevelList = ArrayList<CustomLevel>()
+        val dataList = ArrayList<T>()
         for (element in result) {
             try {
-                val customLevel = googleSheetConverter.toCustomLevelData(element)
-                if (customLevel != null) customLevelList.add(customLevel)
+                val data = callback.invoke(element)
+                if (data != null) dataList.add(data)
             } catch (exception: Exception) {
                 Log.e(TAG, "failed to convert data: $element", exception)
             }
         }
 
-        return customLevelList
+        return dataList
     }
 
 
