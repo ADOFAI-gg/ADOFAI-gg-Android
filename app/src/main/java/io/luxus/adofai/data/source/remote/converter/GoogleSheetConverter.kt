@@ -121,6 +121,11 @@ class GoogleSheetConverter @Inject constructor() {
         )
     }
 
+    fun toTag(data: JsonArray): String? {
+        if (data[1].isJsonNull) return null
+        return data[1].asJsonObject["v"].asString.substring(1)
+    }
+
     private fun safe(element: JsonElement): JsonElement? =
         if (element.isJsonNull) null else element
 

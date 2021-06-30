@@ -32,6 +32,12 @@ class ForumDataMapper @Inject constructor(
         }
     }
 
+    fun getTagList(): List<String> {
+        return getDataList(Constants.GID_ADMIN_TAG) {
+                element-> googleSheetConverter.toTag(element)
+        }
+    }
+
     private fun <T> getDataList(gid: String, callback: (JsonArray) -> T?): List<T> {
         val result = googleSheetService
             .getData(Constants.KEY_ADMIN, gid)

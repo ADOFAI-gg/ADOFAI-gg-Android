@@ -9,4 +9,6 @@ interface LevelRepository {
 
     fun getPlayLogList(): List<PlayLog>
 
+    fun getTagList(): List<String>
+
 }

@@ -16,4 +16,7 @@ class LevelRepositoryImpl @Inject constructor(
     override fun getPlayLogList(): List<PlayLog> =
         forumDataMapper.getPlayLogList()
 
+    override fun getTagList(): List<String> =
+        forumDataMapper.getTagList()
+
 }
