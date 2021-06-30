@@ -23,26 +23,32 @@ class LevelListViewModel @Inject constructor(
         private val TAG = LevelListViewModel::class.java.simpleName
     }
 
-    private lateinit var levelList: ListenableList<CustomLevel>
+    private val levelList = ListenableList<CustomLevel>()
 
     private val loadStatus = MutableLiveData(LoadStatus.LOADING)
 
-
+    private var firstLoad: Boolean = true
 
     enum class LoadStatus {
         FAILED, LOADING, SUCCEED
     }
 
     fun init(listListener: ListenableList.Listener) {
-        levelList = ListenableList(listListener)
+        levelList.setListener(listListener)
+    }
+
+    fun firstLoad() {
+        if (firstLoad) {
+            firstLoad = false
+            load();
+        }
     }
 
     fun load() {
         viewModelScope.launch {
             try {
-                val result = withContext(Dispatchers.IO) {
-                    levelUseCase.getList()
-                }
+                val result = withContext(Dispatchers.IO) { levelUseCase.getList() }
+
                 levelList.changeAllData(result)
                 if (loadStatus.value != LoadStatus.SUCCEED) loadStatus.value = LoadStatus.SUCCEED
             } catch (t: Throwable) {
@@ -51,7 +57,6 @@ class LevelListViewModel @Inject constructor(
             }
         }
     }
-
 
     fun getLevelList(): List<CustomLevel> = levelList
     fun getLoadStatus(): LiveData<LoadStatus> = loadStatus
