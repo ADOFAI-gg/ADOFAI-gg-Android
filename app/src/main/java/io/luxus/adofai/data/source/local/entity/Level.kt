@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 @Entity(
     tableName = "level",
     inheritSuperIndices = true,
-    indices = [Index(value = ["level"])],
+    indices = [Index(value = ["song"])],
     foreignKeys = [
         ForeignKey(
             entity = Song::class,
