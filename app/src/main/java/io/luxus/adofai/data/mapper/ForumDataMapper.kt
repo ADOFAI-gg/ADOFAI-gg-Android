@@ -10,7 +10,6 @@ import io.luxus.adofai.util.Constants
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
 class ForumDataMapper @Inject constructor(
     private val googleSheetService: GoogleSheetService,
     private val googleSheetConverter: GoogleSheetConverter,

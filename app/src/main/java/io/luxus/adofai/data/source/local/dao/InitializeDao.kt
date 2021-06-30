@@ -9,12 +9,19 @@ import io.luxus.adofai.data.source.local.entity.relation.SongArtistCrossRef
 @Dao
 abstract class InitializeDao {
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertLog(initializeLog: InitializeLog)
+
+    @Query("SELECT initialize_log.`data` FROM initialize_log WHERE `key`=:key;")
+    abstract fun getLog(key: String): String?
+
     @Transaction
     open fun initDatabase(personList: List<Person>, songList: List<Song>, tagList: List<Tag>,
                           levelList: List<Level>, playLogList: List<PlayLog>,
                           songArtistCrossRefList: List<SongArtistCrossRef>,
                           levelTagCrossRefList: List<LevelTagCrossRef>,
-                          levelCreatorCrossRefList: List<LevelCreatorCrossRef>) {
+                          levelCreatorCrossRefList: List<LevelCreatorCrossRef>,
+                          initializeLog: InitializeLog) {
         clearDatabase()
         insertPerson(personList)
         insertSong(songList)
@@ -24,6 +31,7 @@ abstract class InitializeDao {
         insertSongArtistCrossRef(songArtistCrossRefList)
         insertLevelTagCrossRef(levelTagCrossRefList)
         insertLevelCreatorCrossRef(levelCreatorCrossRefList)
+        insertLog(initializeLog)
     }
 
     @Transaction
