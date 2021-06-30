@@ -28,7 +28,7 @@ class GoogleSheetConverter @Inject constructor() {
         val tag3 = safe(data[13])?.asJsonObject?.get("v")?.asString
         val tag4 = safe(data[14])?.asJsonObject?.get("v")?.asString
         val tag5 = safe(data[15])?.asJsonObject?.get("v")?.asString
-        val level = data[16].asJsonObject["v"].asDouble
+        val levelValue = data[16].asJsonObject["v"].asDouble
         val rawDownload = safe(data[17])?.asJsonObject?.get("v")?.asString
         val rawWorkshop = safe(data[18])?.asJsonObject?.get("v")?.asString
         val rawVideo = safe(data[19])?.asJsonObject?.get("v")?.asString
@@ -62,6 +62,12 @@ class GoogleSheetConverter @Inject constructor() {
         if (tag3 != null) tags.add(tag3)
         if (tag4 != null) tags.add(tag4)
         if (tag5 != null) tags.add(tag5)
+
+        val level = when (levelValue) {
+            21.0-> -1.0
+            22.0-> 0.0
+            else-> levelValue
+        }
 
         return CustomLevel(
             id, song, artists, level, creators,
