@@ -1,27 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="220dp"
+    android:layout_height="140dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
         android:id="@+id/id"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/song"
+        tools:text="1234" />
+
+    <TextView
+        android:id="@+id/song"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="4dp"
+        android:textSize="20sp"
+        android:gravity="start|center"
+        app:layout_constraintStart_toEndOf="@+id/id"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="We could get more machinegun psystyle!" />
+
+    <TextView
+        android:id="@+id/artist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="start|center"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/song"
+        app:layout_constraintTop_toBottomOf="@+id/song"
+        tools:text="かめりあ(Camellia)" />
+
+    <TextView
+        android:id="@+id/EW"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:gravity="center"
+        android:text="@string/epilepsy_warning"
+        android:textColor="@color/white"
+        android:background="@color/epilepsy_warning"
+        android:textSize="25sp"
         android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/level"
+        app:layout_constraintTop_toTopOf="@+id/song"
+        tools:text="EW" />
+
+    <TextView
+        android:id="@+id/level"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/song"
+        tools:text="20+" />
+
+    <TextView
+        android:id="@+id/bpm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="264dp"
+        android:layout_marginRight="264dp"
+        android:gravity="start|center"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/id"
+        app:layout_constraintTop_toBottomOf="@+id/artist"
+        tools:text="BPM 160" />
+
+    <TextView
+        android:id="@+id/tiles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:gravity="start|center"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/bpm"
+        app:layout_constraintTop_toTopOf="@+id/bpm"
+        tools:text="6974 Tiles" />
+
+    <TextView
+        android:id="@+id/creator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start|center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/level"
+        app:layout_constraintTop_toTopOf="@+id/bpm"
+        tools:text="Map by BWen" />
+
+    <TextView
+        android:id="@+id/tags"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="start|center"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/id"
+        app:layout_constraintTop_toBottomOf="@+id/bpm"
+        tools:text="#동시치기 #64+비트" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_gravity="center"
+        android:background="#a0a0a0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/song"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

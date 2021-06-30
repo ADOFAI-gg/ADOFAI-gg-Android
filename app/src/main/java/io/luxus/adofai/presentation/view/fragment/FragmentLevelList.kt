@@ -1,22 +1,19 @@
 package io.luxus.adofai.presentation.view.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import io.luxus.adofai.R
 import io.luxus.adofai.databinding.FragmentLevelListBinding
 import io.luxus.adofai.presentation.view.adapter.LevelListAdapter
 import io.luxus.adofai.presentation.viewmodel.LevelListViewModel
-import io.luxus.animation.presentation.view.custom.listener.RecyclerItemClickListener
+import io.luxus.adofai.presentation.view.custom.listener.RecyclerItemClickListener
 
 @AndroidEntryPoint
 class FragmentLevelList : Fragment() {

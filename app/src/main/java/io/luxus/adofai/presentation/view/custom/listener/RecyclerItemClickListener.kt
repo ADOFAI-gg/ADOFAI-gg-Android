@@ -1,4 +1,4 @@
-package io.luxus.animation.presentation.view.custom.listener
+package io.luxus.adofai.presentation.view.custom.listener
 
 import android.content.Context
 import android.view.GestureDetector

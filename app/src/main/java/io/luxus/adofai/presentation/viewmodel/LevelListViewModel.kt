@@ -40,11 +40,11 @@ class LevelListViewModel @Inject constructor(
     fun firstLoad() {
         if (firstLoad) {
             firstLoad = false
-            load();
+            load()
         }
     }
 
-    fun load() {
+    private fun load() {
         viewModelScope.launch {
             try {
                 val result = withContext(Dispatchers.IO) { levelUseCase.getList() }
