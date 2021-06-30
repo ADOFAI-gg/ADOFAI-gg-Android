@@ -7,4 +7,40 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
+    <color name="level_m2">#20124D</color>
+    <color name="level_m1">#4C1130</color>
+    <color name="level_0">#CCCCCC</color>
+    <color name="level_1">#4285F4</color>
+    <color name="level_2">#00BBFF</color>
+    <color name="level_3">#00DDFF</color>
+    <color name="level_4">#00FFFF</color>
+    <color name="level_5">#00FFAA</color>
+    <color name="level_6">#00FF00</color>
+    <color name="level_7">#66FF00</color>
+    <color name="level_8">#99FF00</color>
+    <color name="level_9">#CCFF00</color>
+    <color name="level_10">#FFFF00</color>
+    <color name="level_11">#FFDD00</color>
+    <color name="level_12">#FFCC00</color>
+    <color name="level_13">#FFAA00</color>
+    <color name="level_14">#FF8800</color>
+    <color name="level_15">#FF6600</color>
+    <color name="level_16">#FF4400</color>
+    <color name="level_17">#FF0000</color>
+    <color name="level_17p">#E80000</color>
+    <color name="level_18">#CC0000</color>
+    <color name="level_18p">#A61C00</color>
+    <color name="level_19">#660000</color>
+    <color name="level_19p">#460C00</color>
+    <color name="level_20">#000000</color>
+    <color name="level_20p">#000000</color>
+
+    <color name="level_black">#000000</color>
+    <color name="level_white">#FFFFFF</color>
+    <color name="level_red">#FF0000</color>
+
+    <color name="epilepsy_warning">#980000</color>
+
 </resources>
