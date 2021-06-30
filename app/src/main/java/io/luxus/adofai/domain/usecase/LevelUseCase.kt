@@ -7,7 +7,7 @@ class LevelUseCase @Inject constructor(
     private val levelRepository: LevelRepository
 ) {
 
-    fun getList() =
-        levelRepository.getLevelList()
+    fun getList() = levelRepository.getLevelList()
+    fun getPlayLogList() = levelRepository.getPlayLogList()
 
 }

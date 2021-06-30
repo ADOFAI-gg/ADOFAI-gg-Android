@@ -14,6 +14,6 @@ object Constants {
 
     const val GID_ADMIN_MAPS = "739034057"
     const val GID_ADMIN_RANKING = "151952522"
-
+    const val GID_ADMIN_PP_WORK = "110445676"
 
 }

@@ -59,7 +59,8 @@
         android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/level"
         app:layout_constraintTop_toTopOf="@+id/song"
-        tools:text="EW" />
+        tools:text="EW"
+        tools:visibility="visible"/>
 
     <TextView
         android:id="@+id/level"
