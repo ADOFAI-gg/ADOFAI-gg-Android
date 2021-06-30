@@ -53,7 +53,6 @@ class LevelListViewModel @Inject constructor(
     }
 
 
-
     fun getLevelList(): List<CustomLevel> = levelList
     fun getLoadStatus(): LiveData<LoadStatus> = loadStatus
 

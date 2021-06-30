@@ -7,18 +7,22 @@ import io.luxus.adofai.databinding.ItemLevelBinding
 import io.luxus.adofai.domain.entity.CustomLevel
 import io.luxus.adofai.presentation.view.custom.adapter.RecyclerViewAdapter
 
-class LevelListAdapter(
-    private val modelList: List<CustomLevel>
-) : RecyclerViewAdapter<RecyclerView.ViewHolder>() {
+class LevelListAdapter: RecyclerViewAdapter<LevelListAdapter.LevelViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    private lateinit var modelList: List<CustomLevel>
+
+    fun init(modelList: List<CustomLevel>) {
+        this.modelList = modelList
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LevelViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
         return LevelViewHolder(ItemLevelBinding.inflate(inflater, parent, false))
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: LevelViewHolder, position: Int) {
         val model: CustomLevel = modelList[position]
-        (holder as LevelViewHolder).bind(model)
+        holder.bind(model)
     }
 
     override fun getItemId(position: Int): Long =

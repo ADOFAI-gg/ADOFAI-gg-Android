@@ -33,9 +33,10 @@ class FragmentLevelList : Fragment() {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
-        levelListAdapter = LevelListAdapter(viewModel.getLevelList())
-        levelListAdapter.setHasStableIds(true)
         val binding = FragmentLevelListBinding.inflate(inflater, container, false)
+
+        levelListAdapter = LevelListAdapter()
+        levelListAdapter.setHasStableIds(true)
 
         viewModel.init(levelListAdapter.listener)
         viewModel.getLoadStatus().observe(viewLifecycleOwner, {
@@ -48,6 +49,7 @@ class FragmentLevelList : Fragment() {
                     Toast.LENGTH_LONG).show()
             }
         })
+        levelListAdapter.init(viewModel.getLevelList())
 
 
         recyclerView = binding.itemList
