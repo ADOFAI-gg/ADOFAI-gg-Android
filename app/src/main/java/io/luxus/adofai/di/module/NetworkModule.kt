@@ -7,11 +7,7 @@ import dagger.hilt.components.SingletonComponent
 import io.luxus.adofai.data.source.remote.service.GoogleSheetService
 import io.luxus.adofai.data.source.remote.service.factory.JsonTextConverterFactory
 import io.luxus.adofai.util.Constants
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.Response
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module

@@ -2,7 +2,6 @@ package io.luxus.adofai.data.source.remote.converter
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement
-import com.google.gson.JsonObject
 import io.luxus.adofai.domain.entity.CustomLevel
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -74,8 +73,6 @@ class GoogleSheetConverter @Inject constructor() {
 
     private fun safe(element: JsonElement): JsonElement? =
         if (element.isJsonNull) null else element
-
-
 
     private fun toStringList(text: String?): List<String> {
         if (text == null) return listOf("")
