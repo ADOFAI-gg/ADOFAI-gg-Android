@@ -4,6 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import io.luxus.adofai.data.source.local.converter.DateConverter
+import io.luxus.adofai.data.source.local.dao.InitializeDao
 import io.luxus.adofai.data.source.local.entity.*
 import io.luxus.adofai.data.source.local.entity.relation.LevelCreatorCrossRef
 import io.luxus.adofai.data.source.local.entity.relation.LevelTagCrossRef
@@ -27,5 +28,6 @@ import io.luxus.adofai.data.source.local.entity.relation.SongArtistCrossRef
 ])
 abstract class AppDatabase : RoomDatabase() {
 
+    abstract fun initializeDao(): InitializeDao
 
 }
