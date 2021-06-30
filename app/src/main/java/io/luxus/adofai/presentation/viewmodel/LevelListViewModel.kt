@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.luxus.adofai.domain.entity.CustomLevel
 import io.luxus.adofai.domain.usecase.LevelUseCase
+import io.luxus.adofai.presentation.view.custom.type.collection.ListenableList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -22,7 +23,7 @@ class LevelListViewModel @Inject constructor(
         private val TAG = LevelListViewModel::class.java.simpleName
     }
 
-    private val levelList: MutableList<CustomLevel> = ArrayList()
+    private lateinit var levelList: ListenableList<CustomLevel>
 
     private val loadStatus = MutableLiveData(LoadStatus.LOADING)
 
@@ -32,8 +33,8 @@ class LevelListViewModel @Inject constructor(
         FAILED, LOADING, SUCCEED
     }
 
-    fun init() {
-
+    fun init(listListener: ListenableList.Listener) {
+        levelList = ListenableList(listListener)
     }
 
     fun load() {
@@ -42,8 +43,7 @@ class LevelListViewModel @Inject constructor(
                 val result = withContext(Dispatchers.IO) {
                     levelUseCase.getList()
                 }
-                levelList.clear()
-                levelList.addAll(result)
+                levelList.changeAllData(result)
                 if (loadStatus.value != LoadStatus.SUCCEED) loadStatus.value = LoadStatus.SUCCEED
             } catch (t: Throwable) {
                 loadStatus.value = LoadStatus.FAILED

@@ -10,5 +10,4 @@ class LevelUseCase @Inject constructor(
     fun getList() =
         levelRepository.getLevelList()
 
-
 }

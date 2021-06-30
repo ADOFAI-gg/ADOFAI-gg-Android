@@ -1,32 +1,29 @@
-package io.luxus.animation.presentation.view.custom.adapter
+package io.luxus.adofai.presentation.view.custom.adapter
 
 import androidx.recyclerview.widget.RecyclerView
+import io.luxus.adofai.presentation.view.custom.type.collection.ListenableList
 
 abstract class RecyclerViewAdapter<T: RecyclerView.ViewHolder> : RecyclerView.Adapter<T>() {
 
-    val listener: Listener = object: Listener {
-        override fun onItemChangedSync(position: Int) {
+    val listener = object: ListenableList.Listener {
+
+        override fun onItemChanged(position: Int) {
             notifyItemChanged(position)
         }
 
-        override fun onRangeInsertedSync(positionStart: Int, itemCount: Int) {
+        override fun onInserted(positionStart: Int, itemCount: Int) {
             notifyItemRangeInserted(positionStart, itemCount)
         }
 
-        override fun onRemovedSync(position: Int) {
-            notifyItemRemoved(position)
-        }
-
-        override fun onRangeRemovedSync(positionStart: Int, itemCount: Int) {
+        override fun onRemoved(positionStart: Int, itemCount: Int) {
             notifyItemRangeRemoved(positionStart, itemCount)
         }
-    }
 
-    interface Listener {
-        fun onItemChangedSync(position: Int)
-        fun onRangeInsertedSync(positionStart: Int, itemCount: Int)
-        fun onRemovedSync(position: Int)
-        fun onRangeRemovedSync(positionStart: Int, itemCount: Int)
+        override fun onAllChanged() {
+            // TODO : Use DiffUtil
+            notifyDataSetChanged()
+        }
+
     }
 
 }

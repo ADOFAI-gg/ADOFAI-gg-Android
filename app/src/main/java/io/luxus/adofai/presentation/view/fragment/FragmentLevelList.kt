@@ -37,7 +37,7 @@ class FragmentLevelList : Fragment() {
         levelListAdapter.setHasStableIds(true)
         val binding = FragmentLevelListBinding.inflate(inflater, container, false)
 
-        viewModel.init()
+        viewModel.init(levelListAdapter.listener)
         viewModel.getLoadStatus().observe(viewLifecycleOwner, {
             if (it == null) return@observe
             when (it) {

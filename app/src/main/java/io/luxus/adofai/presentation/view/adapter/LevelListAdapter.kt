@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import io.luxus.adofai.databinding.ItemLevelBinding
 import io.luxus.adofai.domain.entity.CustomLevel
-import io.luxus.animation.presentation.view.custom.adapter.RecyclerViewAdapter
+import io.luxus.adofai.presentation.view.custom.adapter.RecyclerViewAdapter
 
 class LevelListAdapter(
     private val modelList: List<CustomLevel>
