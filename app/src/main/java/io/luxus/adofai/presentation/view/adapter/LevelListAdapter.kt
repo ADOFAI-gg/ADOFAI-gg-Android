@@ -33,7 +33,8 @@ class LevelListAdapter: RecyclerViewAdapter<LevelListAdapter.LevelViewHolder>() 
 
     class LevelViewHolder(private val binding: ItemLevelBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(model: CustomLevel) {
-            binding.model = model
+            binding.id.text = model.id.toString()
+            binding.song.text = model.song
         }
     }
 

@@ -67,8 +67,6 @@ class FragmentLevelList : Fragment() {
             }
         }))
 
-        binding.lifecycleOwner = viewLifecycleOwner
-
         //setHasOptionsMenu(true)
         return binding.root
     }
