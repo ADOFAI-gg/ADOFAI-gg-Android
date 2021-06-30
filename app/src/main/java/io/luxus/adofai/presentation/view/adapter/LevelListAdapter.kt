@@ -12,6 +12,7 @@ import io.luxus.adofai.R
 import io.luxus.adofai.databinding.ItemLevelBinding
 import io.luxus.adofai.domain.entity.CustomLevel
 import io.luxus.adofai.presentation.view.custom.adapter.RecyclerViewAdapter
+import io.luxus.adofai.util.converter.LevelConverter
 import kotlin.math.floor
 import kotlin.math.min
 
@@ -55,7 +56,7 @@ class LevelListAdapter: RecyclerViewAdapter<LevelListAdapter.LevelViewHolder>() 
 
         @SuppressLint("SetTextI18n")
         private fun setLevel(textView: TextView, level: Double) {
-            val levelText = "${level.toInt()}${if (floor(level) != level) "+" else ""}"
+            val levelText = LevelConverter.toString(level)
             textView.text = levelText
 
             textView.setBackgroundResource(when (levelText) {
