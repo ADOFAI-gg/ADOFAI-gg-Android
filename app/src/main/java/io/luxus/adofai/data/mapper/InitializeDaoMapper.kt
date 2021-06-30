@@ -5,11 +5,10 @@ import io.luxus.adofai.data.source.local.entity.Level
 import io.luxus.adofai.data.source.local.entity.Person
 import io.luxus.adofai.data.source.local.entity.Song
 import io.luxus.adofai.data.source.local.entity.Tag
-import io.luxus.adofai.domain.entity.CustomLevel
-import io.luxus.adofai.domain.entity.PlayLog
+import io.luxus.adofai.domain.entity.ForumLevel
+import io.luxus.adofai.domain.entity.ForumPlayLog
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.HashSet
 
 class InitializeDaoMapper @Inject constructor(
     private val initializeDao: InitializeDao
@@ -24,13 +23,13 @@ class InitializeDaoMapper @Inject constructor(
 
     fun getLog(key: String) = initializeDao.getLog(key)
 
-    fun initializeData(customLevelList: List<CustomLevel>,
-                     playLogList: List<PlayLog>, tagList: List<String>) {
+    fun initializeData(forumLevelList: List<ForumLevel>,
+                       forumPlayLogList: List<ForumPlayLog>, tagList: List<String>) {
 
         // get person
         var personId: Long = 1
         val personMap = HashMap<String, Person>()
-        for (customLevel in customLevelList) {
+        for (customLevel in forumLevelList) {
             for (artist in customLevel.artist) {
                 if (!personMap.contains(artist)) {
                     personMap[artist] = Person(personId++, artist, null)
@@ -43,7 +42,7 @@ class InitializeDaoMapper @Inject constructor(
             }
         }
 
-        for (playLog in playLogList) {
+        for (playLog in forumPlayLogList) {
             if (!personMap.contains(playLog.name)) {
                 personMap[playLog.name] = Person(personId++, playLog.name, null)
             }
@@ -60,15 +59,26 @@ class InitializeDaoMapper @Inject constructor(
         // get song
         var songId: Long = 1
         val songMap = HashMap<String, Song>()
-        for (customLevel in customLevelList) {
+        for (customLevel in forumLevelList) {
             if (!songMap.containsKey(customLevel.song)) {
-                songMap[customLevel.song] = Song(songId++, customLevel.song, customLevel.minBpm ?: 0.0, customLevel.maxBpm ?: 0.0)
+                songMap[customLevel.song] = Song(songId++, customLevel.song,
+                    customLevel.minBpm ?: 0.0, customLevel.maxBpm ?: 0.0)
             }
         }
 
         // get level
+        val levelMap = HashMap<Long, Level>()
+        for (customLevel in forumLevelList) {
+            if (!levelMap.containsKey(customLevel.id)) {
+                levelMap[customLevel.id] = Level(customLevel.id, songMap[customLevel.song]!!.id,
+                    customLevel.level, customLevel.tiles ?: 0, customLevel.epilepsyWarning,
+                customLevel.video ?: "", customLevel.download ?: "",
+                    customLevel.workshop)
+            }
+        }
 
         // get play log
+        val playLogList = ArrayList<io.luxus.adofai.data.source.local.entity.PlayLog>
 
         // get level creator cross ref
 

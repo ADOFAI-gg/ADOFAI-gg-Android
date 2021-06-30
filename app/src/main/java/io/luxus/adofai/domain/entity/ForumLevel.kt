@@ -1,6 +1,6 @@
 package io.luxus.adofai.domain.entity
 
-data class CustomLevel(
+data class ForumLevel(
     val id: Long,
     val song: String,
     val artist: List<String>,
