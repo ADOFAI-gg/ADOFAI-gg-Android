@@ -27,6 +27,7 @@
         android:layout_marginLeft="4dp"
         android:layout_marginTop="4dp"
         android:textSize="20sp"
+        android:textStyle="bold"
         android:gravity="start|center"
         app:layout_constraintStart_toEndOf="@+id/id"
         app:layout_constraintTop_toTopOf="parent"
@@ -96,14 +97,15 @@
         android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/bpm"
         app:layout_constraintTop_toTopOf="@+id/bpm"
-        tools:text="6974 Tiles" />
+        tools:text="1111 Tiles" />
 
     <TextView
         android:id="@+id/creator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="start|center"
-        android:textSize="20sp"
+        android:maxWidth="200dp"
+        android:gravity="end|center"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/level"
         app:layout_constraintTop_toTopOf="@+id/bpm"
