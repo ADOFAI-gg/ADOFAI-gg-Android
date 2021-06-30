@@ -51,6 +51,7 @@ class LevelListViewModel @Inject constructor(
 
                 levelList.changeAllData(result)
                 if (loadStatus.value != LoadStatus.SUCCEED) loadStatus.value = LoadStatus.SUCCEED
+                val no = withContext(Dispatchers.IO) { levelUseCase.getPlayLogList() }
             } catch (t: Throwable) {
                 loadStatus.value = LoadStatus.FAILED
                 Log.e(TAG, "Failed to fetch data", t)

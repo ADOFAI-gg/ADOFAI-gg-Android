@@ -12,7 +12,9 @@ import io.luxus.adofai.R
 import io.luxus.adofai.databinding.ItemLevelBinding
 import io.luxus.adofai.domain.entity.CustomLevel
 import io.luxus.adofai.presentation.view.custom.adapter.RecyclerViewAdapter
+import io.luxus.adofai.util.converter.LevelConverter
 import kotlin.math.floor
+import kotlin.math.min
 
 class LevelListAdapter: RecyclerViewAdapter<LevelListAdapter.LevelViewHolder>() {
 
@@ -46,7 +48,7 @@ class LevelListAdapter: RecyclerViewAdapter<LevelListAdapter.LevelViewHolder>() 
             setLevel(binding.level, model.level)
             binding.artist.text = model.artist.joinToString(" & ")
             binding.EW.visibility = if (model.epilepsyWarning) View.VISIBLE else View.GONE
-            binding.creator.text = "Map by ${model.creator.joinToString(" & ")}"
+            binding.creator.text = getCreatorString(model.creator)
             binding.bpm.text = getBpmString(model.minBpm, model.maxBpm)
             binding.tiles.text = getTileString(model.tiles)
             binding.tags.text = model.tags.joinToString(" ")
@@ -54,7 +56,7 @@ class LevelListAdapter: RecyclerViewAdapter<LevelListAdapter.LevelViewHolder>() 
 
         @SuppressLint("SetTextI18n")
         private fun setLevel(textView: TextView, level: Double) {
-            val levelText = "${level.toInt()}${if (floor(level) != level) "+" else ""}"
+            val levelText = LevelConverter.toString(level)
             textView.text = levelText
 
             textView.setBackgroundResource(when (levelText) {
@@ -93,6 +95,10 @@ class LevelListAdapter: RecyclerViewAdapter<LevelListAdapter.LevelViewHolder>() 
                 else-> R.color.level_black
             }))
         }
+
+        private fun getCreatorString(creators: List<String>): String =
+            "Map by ${creators.subList(0, min(3, creators.size)).joinToString(" & ")} " +
+                    if (creators.size > 3) "외 ${creators.size-3}명" else ""
 
         private fun getBpmString(minBpm: Double?, maxBpm: Double?): String {
             if (minBpm == null || maxBpm == null) return ""
