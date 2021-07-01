@@ -3,6 +3,9 @@ package io.luxus.adofai
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 import io.luxus.adofai.domain.repository.InitializeRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltAndroidApp
@@ -13,7 +16,9 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        initializeRepository.initialize()
+        CoroutineScope(Dispatchers.IO).launch {
+            initializeRepository.initialize()
+        }
     }
 
 }

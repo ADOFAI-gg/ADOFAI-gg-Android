@@ -19,11 +19,10 @@ class InitializeRepositoryImpl @Inject constructor(
         private val TAG = InitializeRepositoryImpl::class.java.simpleName
     }
 
-    override fun initialize() {
-        CoroutineScope(Dispatchers.IO).launch {
-            initDatabase()
-            Log.i(TAG, "Initialize End")
-        }
+    override suspend fun initialize() {
+        initDatabase()
+        Log.i(TAG, "Initialize End")
+
     }
 
     private suspend fun initDatabase() {
