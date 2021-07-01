@@ -1,4 +1,4 @@
-package io.luxus.adofai.domain.entity
+package io.luxus.adofai.data.source.remote.entity
 
 import java.sql.Date
 

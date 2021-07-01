@@ -1,8 +1,8 @@
 package io.luxus.adofai.data.repository
 
 import io.luxus.adofai.data.mapper.ForumDataMapper
-import io.luxus.adofai.domain.entity.ForumLevel
-import io.luxus.adofai.domain.entity.ForumPlayLog
+import io.luxus.adofai.data.source.remote.entity.ForumLevel
+import io.luxus.adofai.data.source.remote.entity.ForumPlayLog
 import io.luxus.adofai.domain.repository.LevelRepository
 import javax.inject.Inject
 

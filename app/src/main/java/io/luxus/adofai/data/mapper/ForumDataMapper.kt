@@ -4,8 +4,8 @@ import android.util.Log
 import com.google.gson.JsonArray
 import io.luxus.adofai.data.source.remote.converter.GoogleSheetConverter
 import io.luxus.adofai.data.source.remote.service.GoogleSheetService
-import io.luxus.adofai.domain.entity.ForumLevel
-import io.luxus.adofai.domain.entity.ForumPlayLog
+import io.luxus.adofai.data.source.remote.entity.ForumLevel
+import io.luxus.adofai.data.source.remote.entity.ForumPlayLog
 import io.luxus.adofai.util.Constants
 import javax.inject.Inject
 

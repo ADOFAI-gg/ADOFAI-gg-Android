@@ -2,8 +2,8 @@ package io.luxus.adofai.data.source.remote.converter
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement
-import io.luxus.adofai.domain.entity.ForumLevel
-import io.luxus.adofai.domain.entity.ForumPlayLog
+import io.luxus.adofai.data.source.remote.entity.ForumLevel
+import io.luxus.adofai.data.source.remote.entity.ForumPlayLog
 import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.*

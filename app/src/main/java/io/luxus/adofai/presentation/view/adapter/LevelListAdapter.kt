@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import io.luxus.adofai.R
 import io.luxus.adofai.databinding.ItemLevelBinding
-import io.luxus.adofai.domain.entity.ForumLevel
+import io.luxus.adofai.data.source.remote.entity.ForumLevel
 import io.luxus.adofai.presentation.view.custom.adapter.RecyclerViewAdapter
 import io.luxus.adofai.util.converter.LevelConverter
 import kotlin.math.floor

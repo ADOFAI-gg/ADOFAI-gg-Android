@@ -1,4 +1,4 @@
-package io.luxus.adofai.domain.entity
+package io.luxus.adofai.data.source.remote.entity
 
 data class ForumLevel(
     val id: Long,

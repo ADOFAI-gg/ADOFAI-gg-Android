@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.luxus.adofai.domain.entity.ForumLevel
+import io.luxus.adofai.data.source.remote.entity.ForumLevel
 import io.luxus.adofai.domain.usecase.LevelUseCase
 import io.luxus.adofai.presentation.view.custom.type.collection.ListenableList
 import kotlinx.coroutines.Dispatchers
@@ -51,8 +51,6 @@ class LevelListViewModel @Inject constructor(
 
                 levelList.changeAllData(result)
                 if (loadStatus.value != LoadStatus.SUCCEED) loadStatus.value = LoadStatus.SUCCEED
-                //val no = withContext(Dispatchers.IO) { levelUseCase.getPlayLogList() }
-                //val no = withContext(Dispatchers.IO) { levelUseCase.getTagList() }
             } catch (t: Throwable) {
                 loadStatus.value = LoadStatus.FAILED
                 Log.e(TAG, "Failed to fetch data", t)
