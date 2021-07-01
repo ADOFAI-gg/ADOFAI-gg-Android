@@ -14,11 +14,11 @@ import io.luxus.adofai.data.source.local.entity.relation.SongArtistCrossRef
 @Database(entities = [
 
     InitializeLog::class,
-    Level::class,
-    Person::class,
-    PlayLog::class,
-    Song::class,
-    Tag::class,
+    LocalLevel::class,
+    LocalPerson::class,
+    LocalPlayLog::class,
+    LocalSong::class,
+    LocalTag::class,
 
     LevelCreatorCrossRef::class,
     LevelTagCrossRef::class,

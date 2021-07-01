@@ -5,7 +5,6 @@ import io.luxus.adofai.data.source.local.entity.*
 import io.luxus.adofai.data.source.local.entity.relation.LevelCreatorCrossRef
 import io.luxus.adofai.data.source.local.entity.relation.LevelTagCrossRef
 import io.luxus.adofai.data.source.local.entity.relation.SongArtistCrossRef
-import java.util.*
 
 @Dao
 abstract class InitializeDao {
@@ -18,19 +17,19 @@ abstract class InitializeDao {
 
     @Transaction
     open fun initDatabase(
-        personList: Collection<Person>, songList: Collection<Song>,
-        tagList: Collection<Tag>,
-        levelList: Collection<Level>, playLogList: Collection<PlayLog>,
+        localPersonList: Collection<LocalPerson>, localSongList: Collection<LocalSong>,
+        localTagList: Collection<LocalTag>,
+        localLevelList: Collection<LocalLevel>, localPlayLogList: Collection<LocalPlayLog>,
         songArtistCrossRefList: Collection<SongArtistCrossRef>,
         levelTagCrossRefList: Collection<LevelTagCrossRef>,
         levelCreatorCrossRefList: Collection<LevelCreatorCrossRef>,
         initializeLog: InitializeLog) {
         clearDatabase()
-        insertPerson(personList)
-        insertSong(songList)
-        insertTag(tagList)
-        insertLevel(levelList)
-        insertPlayLog(playLogList)
+        insertPerson(localPersonList)
+        insertSong(localSongList)
+        insertTag(localTagList)
+        insertLevel(localLevelList)
+        insertPlayLog(localPlayLogList)
         insertSongArtistCrossRef(songArtistCrossRefList)
         insertLevelTagCrossRef(levelTagCrossRefList)
         insertLevelCreatorCrossRef(levelCreatorCrossRefList)
@@ -39,23 +38,23 @@ abstract class InitializeDao {
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertPerson(personList: Collection<Person>)
+    abstract fun insertPerson(localPersonList: Collection<LocalPerson>)
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertSong(songList: Collection<Song>)
+    abstract fun insertSong(localSongList: Collection<LocalSong>)
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertTag(tagList: Collection<Tag>)
+    abstract fun insertTag(localTagList: Collection<LocalTag>)
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertLevel(levelList: Collection<Level>)
+    abstract fun insertLevel(localLevelList: Collection<LocalLevel>)
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertPlayLog(playLogList: Collection<PlayLog>)
+    abstract fun insertPlayLog(localPlayLogList: Collection<LocalPlayLog>)
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -93,13 +92,13 @@ abstract class InitializeDao {
     @Query("DELETE FROM play_log")
     abstract fun clearPlayLog()
 
-    @Query("DELETE FROM level")
+    @Query("DELETE FROM localLevel")
     abstract fun clearLevel()
 
     @Query("DELETE FROM tag")
     abstract fun clearTag()
 
-    @Query("DELETE FROM song")
+    @Query("DELETE FROM localSong")
     abstract fun clearSong()
 
     @Query("DELETE FROM person")

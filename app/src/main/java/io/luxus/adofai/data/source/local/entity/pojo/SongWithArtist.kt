@@ -3,17 +3,17 @@ package io.luxus.adofai.data.source.local.entity.pojo
 import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
-import io.luxus.adofai.data.source.local.entity.Person
-import io.luxus.adofai.data.source.local.entity.Song
+import io.luxus.adofai.data.source.local.entity.LocalPerson
+import io.luxus.adofai.data.source.local.entity.LocalSong
 import io.luxus.adofai.data.source.local.entity.relation.SongArtistCrossRef
 
 data class SongWithArtist(
-    @Embedded val song: Song,
+    @Embedded val localSong: LocalSong,
     @Relation(
-        entity = Person::class,
+        entity = LocalPerson::class,
         parentColumn = "songId",
         entityColumn = "personId",
         associateBy = Junction(SongArtistCrossRef::class)
     )
-    val artists: List<Person>
+    val artists: List<LocalPerson>
 )

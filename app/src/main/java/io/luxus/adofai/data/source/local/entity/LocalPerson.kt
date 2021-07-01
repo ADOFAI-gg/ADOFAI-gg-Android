@@ -4,11 +4,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "tag",
+    tableName = "person",
     inheritSuperIndices = true
 )
-data class Tag(
-    @PrimaryKey val tagId: Long,
+data class LocalPerson(
+    @PrimaryKey val personId: Long,
     val name: String,
-    val priority: Int
+    val discord: String?
 )

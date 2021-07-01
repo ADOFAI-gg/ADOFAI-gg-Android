@@ -6,18 +6,18 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "level",
+    tableName = "localLevel",
     inheritSuperIndices = true,
     indices = [Index(value = ["song"])],
     foreignKeys = [
         ForeignKey(
-            entity = Song::class,
+            entity = LocalSong::class,
             parentColumns = ["songId"],
             childColumns = ["song"]
         ),
     ]
 )
-data class Level(
+data class LocalLevel(
     @PrimaryKey val levelId: Long,
     val song: Long,
     val level: Double,
