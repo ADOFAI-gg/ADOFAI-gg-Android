@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.luxus.adofai.domain.entity.CustomLevel
+import io.luxus.adofai.domain.entity.ForumLevel
 import io.luxus.adofai.domain.usecase.LevelUseCase
 import io.luxus.adofai.presentation.view.custom.type.collection.ListenableList
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +23,7 @@ class LevelListViewModel @Inject constructor(
         private val TAG = LevelListViewModel::class.java.simpleName
     }
 
-    private val levelList = ListenableList<CustomLevel>()
+    private val levelList = ListenableList<ForumLevel>()
 
     private val loadStatus = MutableLiveData(LoadStatus.LOADING)
 
@@ -51,7 +51,8 @@ class LevelListViewModel @Inject constructor(
 
                 levelList.changeAllData(result)
                 if (loadStatus.value != LoadStatus.SUCCEED) loadStatus.value = LoadStatus.SUCCEED
-                val no = withContext(Dispatchers.IO) { levelUseCase.getPlayLogList() }
+                //val no = withContext(Dispatchers.IO) { levelUseCase.getPlayLogList() }
+                //val no = withContext(Dispatchers.IO) { levelUseCase.getTagList() }
             } catch (t: Throwable) {
                 loadStatus.value = LoadStatus.FAILED
                 Log.e(TAG, "Failed to fetch data", t)
@@ -59,7 +60,7 @@ class LevelListViewModel @Inject constructor(
         }
     }
 
-    fun getLevelList(): List<CustomLevel> = levelList
+    fun getLevelList(): List<ForumLevel> = levelList
     fun getLoadStatus(): LiveData<LoadStatus> = loadStatus
 
 }

@@ -2,7 +2,7 @@ package io.luxus.adofai.domain.entity
 
 import java.sql.Date
 
-data class PlayLog(
+data class ForumPlayLog(
     val id: Long,
     val timeStamp: Date,
     val name: String,

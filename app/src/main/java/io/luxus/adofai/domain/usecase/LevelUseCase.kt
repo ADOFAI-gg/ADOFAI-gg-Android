@@ -9,5 +9,6 @@ class LevelUseCase @Inject constructor(
 
     fun getList() = levelRepository.getLevelList()
     fun getPlayLogList() = levelRepository.getPlayLogList()
+    fun getTagList() = levelRepository.getTagList()
 
 }

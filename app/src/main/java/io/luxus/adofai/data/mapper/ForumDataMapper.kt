@@ -4,13 +4,11 @@ import android.util.Log
 import com.google.gson.JsonArray
 import io.luxus.adofai.data.source.remote.converter.GoogleSheetConverter
 import io.luxus.adofai.data.source.remote.service.GoogleSheetService
-import io.luxus.adofai.domain.entity.CustomLevel
-import io.luxus.adofai.domain.entity.PlayLog
+import io.luxus.adofai.domain.entity.ForumLevel
+import io.luxus.adofai.domain.entity.ForumPlayLog
 import io.luxus.adofai.util.Constants
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
 class ForumDataMapper @Inject constructor(
     private val googleSheetService: GoogleSheetService,
     private val googleSheetConverter: GoogleSheetConverter,
@@ -20,15 +18,21 @@ class ForumDataMapper @Inject constructor(
         private val TAG = ForumDataMapper::class.java.simpleName
     }
 
-    fun getLevelList(): List<CustomLevel> {
+    fun getLevelList(): List<ForumLevel> {
         return getDataList(Constants.GID_ADMIN_MAPS) {
                 element -> googleSheetConverter.toCustomLevelData(element)
         }
     }
 
-    fun getPlayLogList(): List<PlayLog> {
+    fun getPlayLogList(): List<ForumPlayLog> {
         return getDataList(Constants.GID_ADMIN_PP_WORK) {
                 element-> googleSheetConverter.toPlayLog(element)
+        }
+    }
+
+    fun getTagList(): List<String> {
+        return getDataList(Constants.GID_ADMIN_TAG) {
+                element-> googleSheetConverter.toTag(element)
         }
     }
 

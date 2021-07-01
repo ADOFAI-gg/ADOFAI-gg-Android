@@ -1,7 +1,6 @@
 package io.luxus.adofai.presentation.view.adapter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import io.luxus.adofai.R
 import io.luxus.adofai.databinding.ItemLevelBinding
-import io.luxus.adofai.domain.entity.CustomLevel
+import io.luxus.adofai.domain.entity.ForumLevel
 import io.luxus.adofai.presentation.view.custom.adapter.RecyclerViewAdapter
 import io.luxus.adofai.util.converter.LevelConverter
 import kotlin.math.floor
@@ -18,9 +17,9 @@ import kotlin.math.min
 
 class LevelListAdapter: RecyclerViewAdapter<LevelListAdapter.LevelViewHolder>() {
 
-    private lateinit var modelList: List<CustomLevel>
+    private lateinit var modelList: List<ForumLevel>
 
-    fun init(modelList: List<CustomLevel>) {
+    fun init(modelList: List<ForumLevel>) {
         this.modelList = modelList
     }
 
@@ -30,7 +29,7 @@ class LevelListAdapter: RecyclerViewAdapter<LevelListAdapter.LevelViewHolder>() 
     }
 
     override fun onBindViewHolder(holder: LevelViewHolder, position: Int) {
-        val model: CustomLevel = modelList[position]
+        val model: ForumLevel = modelList[position]
         holder.bind(model)
     }
 
@@ -42,7 +41,7 @@ class LevelListAdapter: RecyclerViewAdapter<LevelListAdapter.LevelViewHolder>() 
 
     class LevelViewHolder(private val binding: ItemLevelBinding) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(model: CustomLevel) {
+        fun bind(model: ForumLevel) {
             binding.id.text = model.id.toString()
             binding.song.text = model.song
             setLevel(binding.level, model.level)

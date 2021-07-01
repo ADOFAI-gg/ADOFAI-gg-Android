@@ -2,9 +2,8 @@ package io.luxus.adofai.data.source.remote.converter
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement
-import io.luxus.adofai.domain.entity.CustomLevel
-import io.luxus.adofai.domain.entity.PlayLog
-import io.luxus.adofai.util.converter.LevelConverter
+import io.luxus.adofai.domain.entity.ForumLevel
+import io.luxus.adofai.domain.entity.ForumPlayLog
 import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.*
@@ -15,7 +14,7 @@ import kotlin.collections.ArrayList
 @Singleton
 class GoogleSheetConverter @Inject constructor() {
 
-    fun toCustomLevelData(data: JsonArray): CustomLevel? {
+    fun toCustomLevelData(data: JsonArray): ForumLevel? {
         if (data[0].isJsonNull) return null
 
         val id = data[0].asJsonObject["v"].asLong
@@ -74,7 +73,7 @@ class GoogleSheetConverter @Inject constructor() {
             else-> levelValue
         }
 
-        return CustomLevel(
+        return ForumLevel(
             id, song, artists, level, creators,
             rawDownload, rawWorkshop, rawVideo,
             epilepsyWarning, minBpm, maxBpm,
@@ -82,7 +81,7 @@ class GoogleSheetConverter @Inject constructor() {
         )
     }
 
-    fun toPlayLog(data: JsonArray): PlayLog? {
+    fun toPlayLog(data: JsonArray): ForumPlayLog? {
         if (data[0].isJsonNull) return null
 
         val id = data[0].asJsonObject["v"].asLong
@@ -113,12 +112,17 @@ class GoogleSheetConverter @Inject constructor() {
         //val accuracy = accuracyStr.substring(0, accuracyStr.length - 1).toDouble()
         //val speed = speedStr.substring(0, speedStr.length - 1).toLong()
 
-        return PlayLog(
+        return ForumPlayLog(
             id, time, userName, userCode,
             songID, song, artists, creators,
             0.0, tiles, ra, accuracy, speed.toLong(), playPoint,
             localRank, totalRank, weighted, rawURL
         )
+    }
+
+    fun toTag(data: JsonArray): String? {
+        if (data[1].isJsonNull) return null
+        return data[1].asJsonObject["v"].asString.substring(1)
     }
 
     private fun safe(element: JsonElement): JsonElement? =
