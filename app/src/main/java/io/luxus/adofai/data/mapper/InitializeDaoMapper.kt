@@ -69,12 +69,10 @@ class InitializeDaoMapper @Inject constructor(
         // get localLevel
         val levelMap = HashMap<Long, LocalLevel>()
         for (forumLevel in forumLevelList) {
-            if (!levelMap.containsKey(forumLevel.id)) {
-                levelMap[forumLevel.id] = LocalLevel(forumLevel.id, songMap[forumLevel.song]!!.songId,
-                    forumLevel.level, forumLevel.tiles ?: 0, forumLevel.epilepsyWarning,
-                forumLevel.video ?: "", forumLevel.download ?: "",
-                    forumLevel.workshop)
-            }
+            levelMap[forumLevel.id] = LocalLevel(forumLevel.id, songMap[forumLevel.song]!!.songId,
+                forumLevel.level, forumLevel.tiles ?: 0, forumLevel.epilepsyWarning,
+            forumLevel.video ?: "", forumLevel.download ?: "",
+                forumLevel.workshop)
         }
 
         // get play log

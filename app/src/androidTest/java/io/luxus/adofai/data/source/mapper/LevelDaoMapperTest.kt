@@ -22,7 +22,7 @@ import javax.inject.Inject
 class LevelDaoMapperTest {
 
     @get:Rule
-    public var rule = HiltAndroidRule(this)
+    var rule = HiltAndroidRule(this)
 
     @Inject
     lateinit var database: AppDatabase
