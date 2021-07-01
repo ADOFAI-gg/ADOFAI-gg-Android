@@ -14,7 +14,7 @@ data class LevelWithSongNCreator(
     @Embedded val localLevel: LocalLevel,
     @Relation(
         entity = LocalSong::class,
-        parentColumn = "levelId",
+        parentColumn = "song",
         entityColumn = "songId"
     ) val songWithArtist: SongWithArtist,
     @Relation(

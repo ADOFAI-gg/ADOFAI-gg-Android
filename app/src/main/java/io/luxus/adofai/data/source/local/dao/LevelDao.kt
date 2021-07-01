@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
 import io.luxus.adofai.data.source.local.entity.pojo.LevelWithSongNCreator
-import io.luxus.adofai.data.source.local.entity.pojo.SongWithArtist
 
 @Dao
 abstract class LevelDao {
