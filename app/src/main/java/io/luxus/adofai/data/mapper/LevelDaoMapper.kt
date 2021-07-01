@@ -1,12 +1,18 @@
 package io.luxus.adofai.data.mapper
 
 import io.luxus.adofai.data.source.local.dao.LevelDao
+import io.luxus.adofai.data.source.local.entity.pojo.LevelWithSongNCreator
 import io.luxus.adofai.domain.entity.*
 import javax.inject.Inject
 
 class LevelDaoMapper @Inject constructor(
     private val levelDao: LevelDao
 ) {
+
+    fun get(id: Long): Level? {
+        val result = levelDao.getLevelWithSongNCreator(id) ?: return null
+        return levelWithSongNCreatorToLevel(result)
+    }
 
     fun getList(orderOption: OrderOption, desc: Boolean): List<Level> {
         // get
@@ -24,39 +30,43 @@ class LevelDaoMapper @Inject constructor(
         // convert
         val levelList = ArrayList<Level>(levelWithSongNCreatorList.size)
         for (levelWithSongNCreator in levelWithSongNCreatorList) {
-
-            val artists = ArrayList<Person>(levelWithSongNCreator.songWithArtist.artists.size)
-            for (artist in levelWithSongNCreator.songWithArtist.artists) {
-                artists.add(Person(artist.name, null))
-            }
-            val song = Song(
-                levelWithSongNCreator.songWithArtist.localSong.name,
-                levelWithSongNCreator.songWithArtist.localSong.minBpm,
-                levelWithSongNCreator.songWithArtist.localSong.maxBpm,
-                artists)
-
-            val creators = ArrayList<Person>(levelWithSongNCreator.creators.size)
-            for (creator in levelWithSongNCreator.creators) {
-                creators.add(Person(creator.name, null))
-            }
-
-            val tags = ArrayList<Tag>(levelWithSongNCreator.tags.size)
-            for (tag in levelWithSongNCreator.tags) {
-                tags.add(Tag(tag.name))
-            }
-
-            levelList.add(Level(
-                levelWithSongNCreator.localLevel.levelId, song, creators, tags,
-                levelWithSongNCreator.localLevel.level,
-                levelWithSongNCreator.localLevel.tile,
-                levelWithSongNCreator.localLevel.epilepsyWarning,
-                levelWithSongNCreator.localLevel.video,
-                levelWithSongNCreator.localLevel.download,
-                levelWithSongNCreator.localLevel.workshop ?: ""
-            ))
+            levelList.add(levelWithSongNCreatorToLevel(levelWithSongNCreator))
         }
 
         return levelList
+    }
+
+    private fun levelWithSongNCreatorToLevel(levelWithSongNCreator: LevelWithSongNCreator): Level {
+
+        val artists = ArrayList<Person>(levelWithSongNCreator.songWithArtist.artists.size)
+        for (artist in levelWithSongNCreator.songWithArtist.artists) {
+            artists.add(Person(artist.name, null))
+        }
+        val song = Song(
+            levelWithSongNCreator.songWithArtist.localSong.name,
+            levelWithSongNCreator.songWithArtist.localSong.minBpm,
+            levelWithSongNCreator.songWithArtist.localSong.maxBpm,
+            artists)
+
+        val creators = ArrayList<Person>(levelWithSongNCreator.creators.size)
+        for (creator in levelWithSongNCreator.creators) {
+            creators.add(Person(creator.name, null))
+        }
+
+        val tags = ArrayList<Tag>(levelWithSongNCreator.tags.size)
+        for (tag in levelWithSongNCreator.tags) {
+            tags.add(Tag(tag.name))
+        }
+
+        return Level(
+            levelWithSongNCreator.localLevel.levelId, song, creators, tags,
+            levelWithSongNCreator.localLevel.level,
+            levelWithSongNCreator.localLevel.tile,
+            levelWithSongNCreator.localLevel.epilepsyWarning,
+            levelWithSongNCreator.localLevel.video,
+            levelWithSongNCreator.localLevel.download,
+            levelWithSongNCreator.localLevel.workshop ?: ""
+        )
     }
 
 

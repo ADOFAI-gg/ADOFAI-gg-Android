@@ -20,7 +20,7 @@ abstract class LevelDao {
 
     @Transaction
     @Query("SELECT * FROM level WHERE levelId = :id;")
-    abstract fun getLevelWithSongNCreator(id: Long): LevelWithSongNCreator
+    abstract fun getLevelWithSongNCreator(id: Long): LevelWithSongNCreator?
 
     @Transaction
     @Query("SELECT * FROM level ORDER BY levelId ASC;")
