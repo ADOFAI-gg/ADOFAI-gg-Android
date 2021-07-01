@@ -13,18 +13,18 @@ import java.sql.Date
     foreignKeys = [
         ForeignKey(
             entity = Person::class,
-            parentColumns = ["id"],
+            parentColumns = ["personId"],
             childColumns = ["player"]
         ),
         ForeignKey(
             entity = Level::class,
-            parentColumns = ["id"],
+            parentColumns = ["levelId"],
             childColumns = ["level"]
         ),
     ]
 )
 data class PlayLog(
-    @PrimaryKey(autoGenerate = true) val id: Long,
+    @PrimaryKey(autoGenerate = true) val playLogId: Long,
     val player: Long,
     val level: Long,
     val time: Date,

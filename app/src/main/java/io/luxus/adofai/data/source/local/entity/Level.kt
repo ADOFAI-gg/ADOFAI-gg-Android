@@ -12,13 +12,13 @@ import androidx.room.PrimaryKey
     foreignKeys = [
         ForeignKey(
             entity = Song::class,
-            parentColumns = ["id"],
+            parentColumns = ["songId"],
             childColumns = ["song"]
         ),
     ]
 )
 data class Level(
-    @PrimaryKey val id: Long,
+    @PrimaryKey val levelId: Long,
     val song: Long,
     val level: Double,
     val tile: Long,

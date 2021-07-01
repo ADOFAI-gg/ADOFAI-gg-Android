@@ -70,7 +70,7 @@ class InitializeDaoMapper @Inject constructor(
         val levelMap = HashMap<Long, Level>()
         for (forumLevel in forumLevelList) {
             if (!levelMap.containsKey(forumLevel.id)) {
-                levelMap[forumLevel.id] = Level(forumLevel.id, songMap[forumLevel.song]!!.id,
+                levelMap[forumLevel.id] = Level(forumLevel.id, songMap[forumLevel.song]!!.songId,
                     forumLevel.level, forumLevel.tiles ?: 0, forumLevel.epilepsyWarning,
                 forumLevel.video ?: "", forumLevel.download ?: "",
                     forumLevel.workshop)
@@ -81,7 +81,7 @@ class InitializeDaoMapper @Inject constructor(
         val playLogList = ArrayList<PlayLog>()
         for (forumPlayLog in forumPlayLogList) {
             playLogList.add(PlayLog(
-                forumPlayLog.id, personMap[forumPlayLog.name]!!.id,
+                forumPlayLog.id, personMap[forumPlayLog.name]!!.personId,
                 forumPlayLog.mapId, forumPlayLog.timeStamp, forumPlayLog.speed,
                 forumPlayLog.accuracy, forumPlayLog.pp, forumPlayLog.url
             ))
@@ -92,7 +92,7 @@ class InitializeDaoMapper @Inject constructor(
         for (forumLevel in forumLevelList) {
             for (creator in forumLevel.creator) {
                 levelCreatorCrossRefList.add(LevelCreatorCrossRef(
-                    forumLevel.id, personMap[creator]!!.id
+                    forumLevel.id, personMap[creator]!!.personId
                 ))
             }
         }
@@ -105,7 +105,7 @@ class InitializeDaoMapper @Inject constructor(
                 songArtistCrossRefSet.add(forumLevel.song)
                 for (artist in forumLevel.artist) {
                     songArtistCrossRefList.add(SongArtistCrossRef(
-                            songMap[forumLevel.song]!!.id, personMap[artist]!!.id
+                            songMap[forumLevel.song]!!.songId, personMap[artist]!!.personId
                     ))
                 }
             }
@@ -121,7 +121,7 @@ class InitializeDaoMapper @Inject constructor(
                     tagId++
                 }
                 levelTagCrossRefList.add(LevelTagCrossRef(
-                    forumLevel.id, tagMap[tagText]!!.id
+                    forumLevel.id, tagMap[tagText]!!.tagId
                 ))
             }
         }

@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
     inheritSuperIndices = true
 )
 data class Song(
-    @PrimaryKey val id: Long,
+    @PrimaryKey val songId: Long,
     val name: String,
     val minBpm: Double,
     val maxBpm: Double

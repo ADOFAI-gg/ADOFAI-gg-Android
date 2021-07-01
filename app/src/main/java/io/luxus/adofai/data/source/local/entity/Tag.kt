@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
     inheritSuperIndices = true
 )
 data class Tag(
-    @PrimaryKey val id: Long,
+    @PrimaryKey val tagId: Long,
     val name: String,
     val priority: Int
 )

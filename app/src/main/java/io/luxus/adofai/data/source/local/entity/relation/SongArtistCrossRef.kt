@@ -6,13 +6,13 @@ import androidx.room.Index
 @Entity(
     tableName = "song_artist_cross_ref",
     inheritSuperIndices = true,
-    primaryKeys = ["song", "artist"],
+    primaryKeys = ["songId", "personId"],
     indices = [
-        Index(value = ["song"]),
-        Index(value = ["artist"]),
+        Index(value = ["songId"]),
+        Index(value = ["personId"]),
     ]
 )
 data class SongArtistCrossRef(
-    val song: Long,
-    val artist: Long,
+    val songId: Long,
+    val personId: Long,
 )

@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
     inheritSuperIndices = true
 )
 data class Person(
-    @PrimaryKey val id: Long,
+    @PrimaryKey val personId: Long,
     val name: String,
     val discord: String?
 )
