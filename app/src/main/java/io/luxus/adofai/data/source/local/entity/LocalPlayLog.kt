@@ -12,19 +12,19 @@ import java.sql.Date
     indices = [Index(value = ["player"]), Index(value = ["level"])],
     foreignKeys = [
         ForeignKey(
-            entity = Person::class,
-            parentColumns = ["id"],
+            entity = LocalPerson::class,
+            parentColumns = ["personId"],
             childColumns = ["player"]
         ),
         ForeignKey(
-            entity = Level::class,
-            parentColumns = ["id"],
+            entity = LocalLevel::class,
+            parentColumns = ["levelId"],
             childColumns = ["level"]
         ),
     ]
 )
-data class PlayLog(
-    @PrimaryKey(autoGenerate = true) val id: Long,
+data class LocalPlayLog(
+    @PrimaryKey(autoGenerate = true) val playLogId: Long,
     val player: Long,
     val level: Long,
     val time: Date,

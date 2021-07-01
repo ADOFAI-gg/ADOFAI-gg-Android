@@ -5,6 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import io.luxus.adofai.data.source.local.converter.DateConverter
 import io.luxus.adofai.data.source.local.dao.InitializeDao
+import io.luxus.adofai.data.source.local.dao.LevelDao
 import io.luxus.adofai.data.source.local.entity.*
 import io.luxus.adofai.data.source.local.entity.relation.LevelCreatorCrossRef
 import io.luxus.adofai.data.source.local.entity.relation.LevelTagCrossRef
@@ -13,11 +14,11 @@ import io.luxus.adofai.data.source.local.entity.relation.SongArtistCrossRef
 @Database(entities = [
 
     InitializeLog::class,
-    Level::class,
-    Person::class,
-    PlayLog::class,
-    Song::class,
-    Tag::class,
+    LocalLevel::class,
+    LocalPerson::class,
+    LocalPlayLog::class,
+    LocalSong::class,
+    LocalTag::class,
 
     LevelCreatorCrossRef::class,
     LevelTagCrossRef::class,
@@ -30,5 +31,7 @@ import io.luxus.adofai.data.source.local.entity.relation.SongArtistCrossRef
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun initializeDao(): InitializeDao
+
+    abstract fun levelDao(): LevelDao
 
 }

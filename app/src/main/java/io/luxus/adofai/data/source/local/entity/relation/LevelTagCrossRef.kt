@@ -6,13 +6,13 @@ import androidx.room.Index
 @Entity(
     tableName = "level_tag_cross_ref",
     inheritSuperIndices = true,
-    primaryKeys = ["level", "tag"],
+    primaryKeys = ["levelId", "tagId"],
     indices = [
-        Index(value = ["level"]),
-        Index(value = ["tag"]),
+        Index(value = ["levelId"]),
+        Index(value = ["tagId"]),
     ]
 )
 data class LevelTagCrossRef(
-    val level: Long,
-    val tag: Long,
+    val levelId: Long,
+    val tagId: Long,
 )

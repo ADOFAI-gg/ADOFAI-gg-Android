@@ -2,8 +2,8 @@ package io.luxus.adofai.data.source.remote.converter
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement
-import io.luxus.adofai.domain.entity.ForumLevel
-import io.luxus.adofai.domain.entity.ForumPlayLog
+import io.luxus.adofai.data.source.remote.entity.ForumLevel
+import io.luxus.adofai.data.source.remote.entity.ForumPlayLog
 import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.*
@@ -20,7 +20,7 @@ class GoogleSheetConverter @Inject constructor() {
         val id = data[0].asJsonObject["v"].asLong
         val song = data[1].asJsonObject["v"].asString
         val artists = toStringList(safe(data[2])?.asJsonObject?.get("v")?.asString)
-        //val level = data[3].asJsonObject["v"].asString
+        //val localLevel = data[3].asJsonObject["v"].asString
         val creators = toStringList(data[4].asJsonObject["v"].asString)
         //val download = data[5].asJsonObject["v"].asString
         //val workshop = data[6].asJsonObject["v"].asString
@@ -108,7 +108,7 @@ class GoogleSheetConverter @Inject constructor() {
         // Date(2021,2,21,22,47,8)
         val time = Date(SimpleDateFormat("(yyyy,MM,dd,HH,mm,ss)", Locale.US)
             .parse(timeString.substring(4))!!.time)
-        //val level = LevelConverter.toDouble(levelStr)
+        //val localLevel = LevelConverter.toDouble(levelStr)
         //val accuracy = accuracyStr.substring(0, accuracyStr.length - 1).toDouble()
         //val speed = speedStr.substring(0, speedStr.length - 1).toLong()
 

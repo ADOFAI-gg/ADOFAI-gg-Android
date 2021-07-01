@@ -9,7 +9,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import io.luxus.adofai.R
 import io.luxus.adofai.databinding.ItemLevelBinding
-import io.luxus.adofai.domain.entity.ForumLevel
+import io.luxus.adofai.domain.entity.Level
+import io.luxus.adofai.domain.entity.Person
 import io.luxus.adofai.presentation.view.custom.adapter.RecyclerViewAdapter
 import io.luxus.adofai.util.converter.LevelConverter
 import kotlin.math.floor
@@ -17,9 +18,9 @@ import kotlin.math.min
 
 class LevelListAdapter: RecyclerViewAdapter<LevelListAdapter.LevelViewHolder>() {
 
-    private lateinit var modelList: List<ForumLevel>
+    private lateinit var modelList: List<Level>
 
-    fun init(modelList: List<ForumLevel>) {
+    fun init(modelList: List<Level>) {
         this.modelList = modelList
     }
 
@@ -29,7 +30,7 @@ class LevelListAdapter: RecyclerViewAdapter<LevelListAdapter.LevelViewHolder>() 
     }
 
     override fun onBindViewHolder(holder: LevelViewHolder, position: Int) {
-        val model: ForumLevel = modelList[position]
+        val model = modelList[position]
         holder.bind(model)
     }
 
@@ -41,16 +42,21 @@ class LevelListAdapter: RecyclerViewAdapter<LevelListAdapter.LevelViewHolder>() 
 
     class LevelViewHolder(private val binding: ItemLevelBinding) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(model: ForumLevel) {
+        fun bind(model: Level) {
             binding.id.text = model.id.toString()
-            binding.song.text = model.song
+            binding.song.text = model.song.name
             setLevel(binding.level, model.level)
-            binding.artist.text = model.artist.joinToString(" & ")
+            binding.artist.text = personListToName(model.song.artists)
             binding.EW.visibility = if (model.epilepsyWarning) View.VISIBLE else View.GONE
-            binding.creator.text = getCreatorString(model.creator)
-            binding.bpm.text = getBpmString(model.minBpm, model.maxBpm)
-            binding.tiles.text = getTileString(model.tiles)
-            binding.tags.text = model.tags.joinToString(" ")
+            binding.creator.text = "Map By ${personListToName(model.creators)}"
+            binding.bpm.text = getBpmString(model.song.minBpm, model.song.maxBpm)
+            binding.tiles.text = getTileString(model.tile)
+            binding.tags.text = model.tags.joinToString(" ", transform={ it.name })
+        }
+
+        private fun personListToName(personList: List<Person>): String {
+            return personList.joinToString(" & ", transform= { it.name }) +
+                    if (personList.size > 3) "외 ${personList.size-3}명" else ""
         }
 
         @SuppressLint("SetTextI18n")
@@ -94,10 +100,6 @@ class LevelListAdapter: RecyclerViewAdapter<LevelListAdapter.LevelViewHolder>() 
                 else-> R.color.level_black
             }))
         }
-
-        private fun getCreatorString(creators: List<String>): String =
-            "Map by ${creators.subList(0, min(3, creators.size)).joinToString(" & ")} " +
-                    if (creators.size > 3) "외 ${creators.size-3}명" else ""
 
         private fun getBpmString(minBpm: Double?, maxBpm: Double?): String {
             if (minBpm == null || maxBpm == null) return ""

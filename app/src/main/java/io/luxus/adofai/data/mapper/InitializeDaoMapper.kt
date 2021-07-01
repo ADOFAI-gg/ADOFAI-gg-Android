@@ -5,8 +5,8 @@ import io.luxus.adofai.data.source.local.entity.*
 import io.luxus.adofai.data.source.local.entity.relation.LevelCreatorCrossRef
 import io.luxus.adofai.data.source.local.entity.relation.LevelTagCrossRef
 import io.luxus.adofai.data.source.local.entity.relation.SongArtistCrossRef
-import io.luxus.adofai.domain.entity.ForumLevel
-import io.luxus.adofai.domain.entity.ForumPlayLog
+import io.luxus.adofai.data.source.remote.entity.ForumLevel
+import io.luxus.adofai.data.source.remote.entity.ForumPlayLog
 import java.util.*
 import javax.inject.Inject
 
@@ -28,76 +28,74 @@ class InitializeDaoMapper @Inject constructor(
 
         // get person
         var personId: Long = 1
-        val personMap = HashMap<String, Person>()
+        val personMap = HashMap<String, LocalPerson>()
         for (customLevel in forumLevelList) {
             for (artist in customLevel.artist) {
                 if (!personMap.contains(artist)) {
-                    personMap[artist] = Person(personId++, artist, null)
+                    personMap[artist] = LocalPerson(personId++, artist, null)
                 }
             }
             for (creator in customLevel.creator) {
                 if (!personMap.contains(creator)) {
-                    personMap[creator] = Person(personId++, creator, null)
+                    personMap[creator] = LocalPerson(personId++, creator, null)
                 }
             }
         }
 
         for (forumPlayLog in forumPlayLogList) {
             if (!personMap.contains(forumPlayLog.name)) {
-                personMap[forumPlayLog.name] = Person(personId++, forumPlayLog.name, null)
+                personMap[forumPlayLog.name] = LocalPerson(personId++, forumPlayLog.name, null)
             }
         }
 
         // get tag
         var tagId: Long = 1
-        val tagMap = HashMap<String, Tag>()
+        val tagMap = HashMap<String, LocalTag>()
         for (tag in tagList) {
-            tagMap[tag] = Tag(tagId, tag, tagId.toInt())
+            tagMap[tag] = LocalTag(tagId, tag, tagId.toInt())
             tagId++
         }
 
-        // get song
+        // get localSong
         var songId: Long = 1
-        val songMap = HashMap<String, Song>()
+        val songMap = HashMap<String, LocalSong>()
         for (customLevel in forumLevelList) {
             if (!songMap.containsKey(customLevel.song)) {
-                songMap[customLevel.song] = Song(songId++, customLevel.song,
+                songMap[customLevel.song] = LocalSong(songId++, customLevel.song,
                     customLevel.minBpm ?: 0.0, customLevel.maxBpm ?: 0.0)
             }
         }
 
-        // get level
-        val levelMap = HashMap<Long, Level>()
+        // get localLevel
+        val levelMap = HashMap<Long, LocalLevel>()
         for (forumLevel in forumLevelList) {
-            if (!levelMap.containsKey(forumLevel.id)) {
-                levelMap[forumLevel.id] = Level(forumLevel.id, songMap[forumLevel.song]!!.id,
-                    forumLevel.level, forumLevel.tiles ?: 0, forumLevel.epilepsyWarning,
-                forumLevel.video ?: "", forumLevel.download ?: "",
-                    forumLevel.workshop)
-            }
+            levelMap[forumLevel.id] = LocalLevel(forumLevel.id, songMap[forumLevel.song]!!.songId,
+                forumLevel.level, forumLevel.tiles ?: 0, forumLevel.epilepsyWarning,
+            forumLevel.video ?: "", forumLevel.download ?: "",
+                forumLevel.workshop)
         }
 
         // get play log
-        val playLogList = ArrayList<PlayLog>()
+        val playLogList = ArrayList<LocalPlayLog>()
         for (forumPlayLog in forumPlayLogList) {
-            playLogList.add(PlayLog(
-                forumPlayLog.id, personMap[forumPlayLog.name]!!.id,
+            playLogList.add(LocalPlayLog(
+                forumPlayLog.id, personMap[forumPlayLog.name]!!.personId,
                 forumPlayLog.mapId, forumPlayLog.timeStamp, forumPlayLog.speed,
                 forumPlayLog.accuracy, forumPlayLog.pp, forumPlayLog.url
             ))
         }
 
-        // get level creator cross ref
+        // get localLevel creator cross ref
         val levelCreatorCrossRefList = LinkedList<LevelCreatorCrossRef>()
         for (forumLevel in forumLevelList) {
             for (creator in forumLevel.creator) {
                 levelCreatorCrossRefList.add(LevelCreatorCrossRef(
-                    forumLevel.id, personMap[creator]!!.id
+                    forumLevel.id, personMap[creator]!!.personId
                 ))
             }
         }
 
-        // get song artist cross ref
+        // get localSong artist cross ref
         val songArtistCrossRefSet = HashSet<String>()
         val songArtistCrossRefList = LinkedList<SongArtistCrossRef>()
         for (forumLevel in forumLevelList) {
@@ -105,23 +103,23 @@ class InitializeDaoMapper @Inject constructor(
                 songArtistCrossRefSet.add(forumLevel.song)
                 for (artist in forumLevel.artist) {
                     songArtistCrossRefList.add(SongArtistCrossRef(
-                            songMap[forumLevel.song]!!.id, personMap[artist]!!.id
+                            songMap[forumLevel.song]!!.songId, personMap[artist]!!.personId
                     ))
                 }
             }
         }
 
-        // get level tag cross ref
+        // get localLevel tag cross ref
         val levelTagCrossRefList = LinkedList<LevelTagCrossRef>()
         for (forumLevel in forumLevelList) {
             for (tagFullText in forumLevel.tags) {
                 val tagText = tagFullText.substring(1)
                 if (!tagMap.containsKey(tagText)) {
-                    tagMap[tagText] = Tag(tagId, tagText, tagId.toInt())
+                    tagMap[tagText] = LocalTag(tagId, tagText, tagId.toInt())
                     tagId++
                 }
                 levelTagCrossRefList.add(LevelTagCrossRef(
-                    forumLevel.id, tagMap[tagText]!!.id
+                    forumLevel.id, tagMap[tagText]!!.tagId
                 ))
             }
         }

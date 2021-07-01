@@ -4,11 +4,12 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "person",
+    tableName = "song",
     inheritSuperIndices = true
 )
-data class Person(
-    @PrimaryKey val id: Long,
+data class LocalSong(
+    @PrimaryKey val songId: Long,
     val name: String,
-    val discord: String?
+    val minBpm: Double,
+    val maxBpm: Double
 )

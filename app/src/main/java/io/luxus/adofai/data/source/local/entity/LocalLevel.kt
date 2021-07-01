@@ -11,14 +11,14 @@ import androidx.room.PrimaryKey
     indices = [Index(value = ["song"])],
     foreignKeys = [
         ForeignKey(
-            entity = Song::class,
-            parentColumns = ["id"],
+            entity = LocalSong::class,
+            parentColumns = ["songId"],
             childColumns = ["song"]
         ),
     ]
 )
-data class Level(
-    @PrimaryKey val id: Long,
+data class LocalLevel(
+    @PrimaryKey val levelId: Long,
     val song: Long,
     val level: Double,
     val tile: Long,
