@@ -13,9 +13,8 @@ class LevelRepositoryImpl @Inject constructor(
     private val levelDaoMapper: LevelDaoMapper
 ) : LevelRepository {
 
-    override fun getLevelList(orderOption: OrderOption, desc: Boolean): List<Level> {
-        TODO("Not yet implemented")
-    }
+    override fun getLevelList(orderOption: OrderOption, desc: Boolean): List<Level> =
+        levelDaoMapper.getList(orderOption, desc)
 
 
 }
