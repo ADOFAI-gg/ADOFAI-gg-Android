@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "localSong",
+    tableName = "song",
     inheritSuperIndices = true
 )
 data class LocalSong(

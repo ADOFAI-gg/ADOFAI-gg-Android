@@ -23,5 +23,8 @@ class DatabaseModule {
     fun provideInitializeDao(appDatabase: AppDatabase) =
         appDatabase.initializeDao()
 
+    @Provides
+    fun provideLevelDao(appDatabase: AppDatabase) =
+        appDatabase.levelDao()
 
 }

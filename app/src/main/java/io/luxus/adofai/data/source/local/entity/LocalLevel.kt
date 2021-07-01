@@ -6,7 +6,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "localLevel",
+    tableName = "level",
     inheritSuperIndices = true,
     indices = [Index(value = ["song"])],
     foreignKeys = [

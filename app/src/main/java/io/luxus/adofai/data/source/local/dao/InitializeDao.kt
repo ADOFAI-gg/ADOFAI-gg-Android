@@ -92,13 +92,13 @@ abstract class InitializeDao {
     @Query("DELETE FROM play_log")
     abstract fun clearPlayLog()
 
-    @Query("DELETE FROM localLevel")
+    @Query("DELETE FROM level")
     abstract fun clearLevel()
 
     @Query("DELETE FROM tag")
     abstract fun clearTag()
 
-    @Query("DELETE FROM localSong")
+    @Query("DELETE FROM song")
     abstract fun clearSong()
 
     @Query("DELETE FROM person")
