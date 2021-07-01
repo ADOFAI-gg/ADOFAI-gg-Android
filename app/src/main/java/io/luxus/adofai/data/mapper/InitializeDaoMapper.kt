@@ -1,10 +1,10 @@
 package io.luxus.adofai.data.mapper
 
 import io.luxus.adofai.data.source.local.dao.InitializeDao
-import io.luxus.adofai.data.source.local.entity.Level
-import io.luxus.adofai.data.source.local.entity.Person
-import io.luxus.adofai.data.source.local.entity.Song
-import io.luxus.adofai.data.source.local.entity.Tag
+import io.luxus.adofai.data.source.local.entity.*
+import io.luxus.adofai.data.source.local.entity.relation.LevelCreatorCrossRef
+import io.luxus.adofai.data.source.local.entity.relation.LevelTagCrossRef
+import io.luxus.adofai.data.source.local.entity.relation.SongArtistCrossRef
 import io.luxus.adofai.domain.entity.ForumLevel
 import io.luxus.adofai.domain.entity.ForumPlayLog
 import java.util.*
@@ -42,9 +42,9 @@ class InitializeDaoMapper @Inject constructor(
             }
         }
 
-        for (playLog in forumPlayLogList) {
-            if (!personMap.contains(playLog.name)) {
-                personMap[playLog.name] = Person(personId++, playLog.name, null)
+        for (forumPlayLog in forumPlayLogList) {
+            if (!personMap.contains(forumPlayLog.name)) {
+                personMap[forumPlayLog.name] = Person(personId++, forumPlayLog.name, null)
             }
         }
 
@@ -68,26 +68,71 @@ class InitializeDaoMapper @Inject constructor(
 
         // get level
         val levelMap = HashMap<Long, Level>()
-        for (customLevel in forumLevelList) {
-            if (!levelMap.containsKey(customLevel.id)) {
-                levelMap[customLevel.id] = Level(customLevel.id, songMap[customLevel.song]!!.id,
-                    customLevel.level, customLevel.tiles ?: 0, customLevel.epilepsyWarning,
-                customLevel.video ?: "", customLevel.download ?: "",
-                    customLevel.workshop)
+        for (forumLevel in forumLevelList) {
+            if (!levelMap.containsKey(forumLevel.id)) {
+                levelMap[forumLevel.id] = Level(forumLevel.id, songMap[forumLevel.song]!!.id,
+                    forumLevel.level, forumLevel.tiles ?: 0, forumLevel.epilepsyWarning,
+                forumLevel.video ?: "", forumLevel.download ?: "",
+                    forumLevel.workshop)
             }
         }
 
         // get play log
-        val playLogList = ArrayList<io.luxus.adofai.data.source.local.entity.PlayLog>
+        val playLogList = ArrayList<PlayLog>()
+        for (forumPlayLog in forumPlayLogList) {
+            playLogList.add(PlayLog(
+                forumPlayLog.id, personMap[forumPlayLog.name]!!.id,
+                forumPlayLog.mapId, forumPlayLog.timeStamp, forumPlayLog.speed,
+                forumPlayLog.accuracy, forumPlayLog.pp, forumPlayLog.url
+            ))
+        }
 
         // get level creator cross ref
-
-        // get tag cross ref
+        val levelCreatorCrossRefList = LinkedList<LevelCreatorCrossRef>()
+        for (forumLevel in forumLevelList) {
+            for (creator in forumLevel.creator) {
+                levelCreatorCrossRefList.add(LevelCreatorCrossRef(
+                    forumLevel.id, personMap[creator]!!.id
+                ))
+            }
+        }
 
         // get song artist cross ref
+        val songArtistCrossRefSet = HashSet<String>()
+        val songArtistCrossRefList = LinkedList<SongArtistCrossRef>()
+        for (forumLevel in forumLevelList) {
+            if (!songArtistCrossRefSet.contains(forumLevel.song)) {
+                songArtistCrossRefSet.add(forumLevel.song)
+                for (artist in forumLevel.artist) {
+                    songArtistCrossRefList.add(SongArtistCrossRef(
+                            songMap[forumLevel.song]!!.id, personMap[artist]!!.id
+                    ))
+                }
+            }
+        }
+
+        // get level tag cross ref
+        val levelTagCrossRefList = LinkedList<LevelTagCrossRef>()
+        for (forumLevel in forumLevelList) {
+            for (tagFullText in forumLevel.tags) {
+                val tagText = tagFullText.substring(1)
+                if (!tagMap.containsKey(tagText)) {
+                    tagMap[tagText] = Tag(tagId, tagText, tagId.toInt())
+                    tagId++
+                }
+                levelTagCrossRefList.add(LevelTagCrossRef(
+                    forumLevel.id, tagMap[tagText]!!.id
+                ))
+            }
+        }
 
         // submit
-
+        val initializeLog = InitializeLog(KEY_MODE_DATA, DATA_MODE_COMPLETED)
+        initializeDao.initDatabase(
+            personMap.values, songMap.values, tagMap.values, levelMap.values, playLogList,
+            songArtistCrossRefList, levelTagCrossRefList, levelCreatorCrossRefList,
+            initializeLog
+        )
     }
 
 

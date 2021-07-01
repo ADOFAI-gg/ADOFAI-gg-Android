@@ -5,6 +5,7 @@ import io.luxus.adofai.data.source.local.entity.*
 import io.luxus.adofai.data.source.local.entity.relation.LevelCreatorCrossRef
 import io.luxus.adofai.data.source.local.entity.relation.LevelTagCrossRef
 import io.luxus.adofai.data.source.local.entity.relation.SongArtistCrossRef
+import java.util.*
 
 @Dao
 abstract class InitializeDao {
@@ -16,12 +17,14 @@ abstract class InitializeDao {
     abstract fun getLog(key: String): String?
 
     @Transaction
-    open fun initDatabase(personList: List<Person>, songList: List<Song>, tagList: List<Tag>,
-                          levelList: List<Level>, playLogList: List<PlayLog>,
-                          songArtistCrossRefList: List<SongArtistCrossRef>,
-                          levelTagCrossRefList: List<LevelTagCrossRef>,
-                          levelCreatorCrossRefList: List<LevelCreatorCrossRef>,
-                          initializeLog: InitializeLog) {
+    open fun initDatabase(
+        personList: Collection<Person>, songList: Collection<Song>,
+        tagList: Collection<Tag>,
+        levelList: Collection<Level>, playLogList: Collection<PlayLog>,
+        songArtistCrossRefList: Collection<SongArtistCrossRef>,
+        levelTagCrossRefList: Collection<LevelTagCrossRef>,
+        levelCreatorCrossRefList: Collection<LevelCreatorCrossRef>,
+        initializeLog: InitializeLog) {
         clearDatabase()
         insertPerson(personList)
         insertSong(songList)
@@ -36,35 +39,35 @@ abstract class InitializeDao {
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertPerson(personList: List<Person>)
+    abstract fun insertPerson(personList: Collection<Person>)
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertSong(songList: List<Song>)
+    abstract fun insertSong(songList: Collection<Song>)
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertTag(tagList: List<Tag>)
+    abstract fun insertTag(tagList: Collection<Tag>)
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertLevel(levelList: List<Level>)
+    abstract fun insertLevel(levelList: Collection<Level>)
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertPlayLog(playLogList: List<PlayLog>)
+    abstract fun insertPlayLog(playLogList: Collection<PlayLog>)
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertSongArtistCrossRef(songArtistCrossRefList: List<SongArtistCrossRef>)
+    abstract fun insertSongArtistCrossRef(songArtistCrossRefList: Collection<SongArtistCrossRef>)
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertLevelTagCrossRef(levelTagCrossRefList: List<LevelTagCrossRef>)
+    abstract fun insertLevelTagCrossRef(levelTagCrossRefList: Collection<LevelTagCrossRef>)
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertLevelCreatorCrossRef(levelCreatorCrossRefList: List<LevelCreatorCrossRef>)
+    abstract fun insertLevelCreatorCrossRef(levelCreatorCrossRefList: Collection<LevelCreatorCrossRef>)
 
     @Transaction
     open fun clearDatabase() {
