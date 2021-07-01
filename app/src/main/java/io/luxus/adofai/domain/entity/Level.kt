@@ -1,6 +1,7 @@
 package io.luxus.adofai.domain.entity
 
 data class Level(
+    val id: Long,
     val song: Song,
     val creators: List<Person>,
     val tags: List<Tag>,
