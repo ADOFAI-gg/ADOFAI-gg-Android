@@ -1,5 +1,6 @@
 package io.luxus.adofai.domain.usecase
 
+import io.luxus.adofai.domain.entity.OrderOption
 import io.luxus.adofai.domain.repository.LevelRepository
 import javax.inject.Inject
 
@@ -7,8 +8,7 @@ class LevelUseCase @Inject constructor(
     private val levelRepository: LevelRepository
 ) {
 
-    fun getList() = levelRepository.getLevelList()
-    fun getPlayLogList() = levelRepository.getPlayLogList()
-    fun getTagList() = levelRepository.getTagList()
+    fun getList(orderOption: OrderOption, desc: Boolean) =
+        levelRepository.getLevelList(orderOption, desc)
 
 }

@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.luxus.adofai.data.source.remote.entity.ForumLevel
+import io.luxus.adofai.domain.entity.Level
+import io.luxus.adofai.domain.entity.OrderOption
 import io.luxus.adofai.domain.usecase.LevelUseCase
 import io.luxus.adofai.presentation.view.custom.type.collection.ListenableList
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +25,7 @@ class LevelListViewModel @Inject constructor(
         private val TAG = LevelListViewModel::class.java.simpleName
     }
 
-    private val levelList = ListenableList<ForumLevel>()
+    private val levelList = ListenableList<Level>()
 
     private val loadStatus = MutableLiveData(LoadStatus.LOADING)
 
@@ -47,7 +49,9 @@ class LevelListViewModel @Inject constructor(
     private fun load() {
         viewModelScope.launch {
             try {
-                val result = withContext(Dispatchers.IO) { levelUseCase.getList() }
+                val result = withContext(Dispatchers.IO) {
+                    levelUseCase.getList(OrderOption.LEVEL, true)
+                }
 
                 levelList.changeAllData(result)
                 if (loadStatus.value != LoadStatus.SUCCEED) loadStatus.value = LoadStatus.SUCCEED
@@ -58,7 +62,7 @@ class LevelListViewModel @Inject constructor(
         }
     }
 
-    fun getLevelList(): List<ForumLevel> = levelList
+    fun getLevelList(): List<Level> = levelList
     fun getLoadStatus(): LiveData<LoadStatus> = loadStatus
 
 }

@@ -8,7 +8,7 @@ data class Level(
 
     val level: Double,
     val tile: Long,
-    val epilepsy_warning: Boolean,
+    val epilepsyWarning: Boolean,
     val video: String,
     val download: String,
     val workshop: String,
